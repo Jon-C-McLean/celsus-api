@@ -1,0 +1,10 @@
+[project]
+name = "celsus-api"
+version = "0.0.1"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "dramatiq[rabbitmq, watch]",
+    "pymongo",
+    "strawberry-graphql[fastapi]",
+]
