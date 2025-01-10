@@ -7,6 +7,7 @@ dependencies = [
     "dramatiq[rabbitmq, watch]",
     "pymongo",
     "strawberry-graphql[fastapi]",
+    "httpx",
 ]
 
 [project.optional-dependencies]
@@ -14,3 +15,6 @@ test = [
     "ruff",
     "pytest",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
