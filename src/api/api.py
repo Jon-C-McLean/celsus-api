@@ -6,10 +6,8 @@ from fastapi.responses import RedirectResponse
 
 from motor.motor_asyncio import AsyncIOMotorClient
 
-CONNECTION_STRING = os.environ['MONGODB_URI']
-# client = AsyncIOMotorClient(CONNECTION_STRING)
-
 async def db_lifespan(app: FastAPI):
+    CONNECTION_STRING = os.environ['MONGODB_URI']
     app.mongodb_client = AsyncIOMotorClient(CONNECTION_STRING)
     app.database = app.mongodb_client["test"]
     
