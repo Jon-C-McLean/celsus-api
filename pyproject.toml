@@ -8,6 +8,7 @@ dependencies = [
     "pymongo",
     "strawberry-graphql[fastapi]",
     "httpx",
+    "motor[srv]",
 ]
 
 [project.optional-dependencies]
