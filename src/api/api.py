@@ -1,8 +1,26 @@
+import os
+
 from datetime import datetime
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+from motor.motor_asyncio import AsyncIOMotorClient
+
+async def db_lifespan(app: FastAPI):
+    CONNECTION_STRING = os.environ['MONGODB_URI']
+    app.mongodb_client = AsyncIOMotorClient(CONNECTION_STRING)
+    app.database = app.mongodb_client["test"]
+    
+    ping_response = await app.database.command("ping")
+    
+    if int(ping_response["ok"]) != 1:
+        raise Exception("Cannot connect to MongoDB")
+    
+    yield
+    
+    app.mongodb_client.close()
+
+app = FastAPI(lifespan=db_lifespan)
 
 @app.get("/", include_in_schema=False)
 def docs_redirect():
